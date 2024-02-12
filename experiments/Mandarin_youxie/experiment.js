@@ -35,7 +35,7 @@ timeline.push(irb);
 // instructions
 const instructions = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: "在接. Your job is to answer yes or no based on whether you agree with these sentences or not. The experiment should take ~10 minutes. <br><br><strong>This experiment requires audio. Please complete it in a quiet place and make sure the sound is on. </strong> <br><br>When you're ready to begin, press the space bar.",
+    stimulus: "You will hear some sentences. Your job is to answer yes or no based on whether you agree with these sentences or not. The experiment should take ~10 minutes. <br><br><strong>This experiment requires audio. Please complete it in a quiet place and make sure the sound is on. </strong> <br><br>When you're ready to begin, press the space bar.",
     choices: [" "]
 };
 timeline.push(instructions);

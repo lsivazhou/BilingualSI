@@ -49,6 +49,15 @@ const cover_story = {
     prompt: "<h3>请按下空格键以继续实验。<h3>"
 };
 timeline.push(cover_story);
+
+const response_keys = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus:
+    '<p><font size="5"> 请将你的右手食指放在 <strong>J</strong> 键上，左手食指放在 <strong>F</strong> 键上。<br><br> 如果你同意口香糖机的播报，请按 <strong>F</strong> 键；如果你不同意，请按 <strong>J</strong> 键。<br>使用你的大拇指按下 <strong>空格键</strong> ，不要移动你的食指。<br> <strong>请记住，听到播报后，你有4秒钟通知店员。</strong> <br><br> <img src="image/keypress.jpg" alt="keyboard" align="center" style="height:400px"> <br><br> </p></font> ', 
+    choices: [" "],
+    prompt: "<h3>请按下空格键以继续实验。<h3>"
+};
+timeline.push(response_keys);
 /*
 const trials = {
     timeline: [
@@ -80,6 +89,98 @@ const trials = {
     ],
     randomize_order: true
 }*/
+
+const tutorial_1 = {
+    timeline: [
+        {
+            type: jsPsychAudioKeyboardResponse,
+            choices: [""],
+            stimulus: 'audio/kaching.wav',
+            response_ends_trial: false,
+            trial_ends_after_audio: true,
+            trial_duration: 2000,
+            prompt: `<img src='image/0.jpg'; style='height:400px'>`
+        },
+        {   type: jsPsychAudioKeyboardResponse,
+            choices: [""],
+            stimulus: 'audio/suoyou.wav',
+            response_ends_trial: false,
+            trial_ends_after_audio: true,
+            trial_duration: 2000,
+            prompt: `<img src='image/13.jpg'; style='height:400px'>`
+        },
+        {   type: jsPsychHtmlKeyboardResponse,
+            choices: ['f'],
+            stimulus: `<img src='image/13.jpg'; style='height:400px'>`,
+            response_ends_trial: true,
+            prompt: `<br><h3>按下 <strong> "是"（F）</strong> 键以通知店员您同意该播报。<h3>`
+        },
+        {   type: jsPsychHtmlKeyboardResponse,
+            choices: [' '],
+            stimulus: `<h3><big><p2> 你告诉店员你同意这个播报。因此，他知道口香糖机是空的，他需要重新装满机器。 </p2></big></h3><img src='image/store_worker_gumball.jpg'; style='height:400px'>`,
+            response_ends_trial: true,
+            prompt: `<h3>请按下空格键以观看下一个教程。<h3>`
+        }
+    ]
+};
+timeline.push(tutorial_1);
+
+const tutorial_2 = {
+    timeline: [
+        {
+            type: jsPsychAudioKeyboardResponse,
+            choices: [""],
+            stimulus: 'audio/kaching.wav',
+            response_ends_trial: false,
+            trial_ends_after_audio: true,
+            trial_duration: 2000,
+            prompt: `<img src='image/0.jpg'; style='height:400px'>`
+        },
+        {   type: jsPsychAudioKeyboardResponse,
+            choices: [""],
+            stimulus: 'audio/meiyou.wav',
+            response_ends_trial: false,
+            trial_ends_after_audio: true,
+            trial_duration: 2000,
+            prompt: `<img src='image/10.jpg'; style='height:400px'>`
+        },
+        {   type: jsPsychHtmlKeyboardResponse,
+            choices: ['j'],
+            stimulus: `<img src='image/10.jpg'; style='height:400px'>`,
+            response_ends_trial: true,
+            prompt: `<br><h3>按下 <strong> "否"（J）</strong> 键以通知店员您不同意该播报。<h3>`
+        },
+        {   type: jsPsychHtmlKeyboardResponse,
+            choices: [' '],
+            stimulus: `<h3><big><p2> 你告诉店员你不同意这个声明。因此，他知道口香糖机不是空的，不需要重新装满机器。 </p2></big></h3><img src='image/store_worker_gumball.jpg'; style='height:400px'>`,
+            response_ends_trial: true,
+            prompt: `<h3>请按下空格键以继续实验。<h3>`
+        }
+    ]
+};
+timeline.push(tutorial_2);
+
+const warning_quiz = {
+    timeline: [
+        {   type: jsPsychHtmlKeyboardResponse,
+            choices: [' '],
+            stimulus: `<h3><big><p2>注意! </h3></big> <img src='image/13.jpg'; align='left'; style='height:200px'><h3><p2>有一次，有人拿了这么多口香糖，并被告知“你拿到了所有的口香糖。“ <br>可他按下了“否”(J)键，告诉店员他不同意这个播报。店员以为机器不是空的，不需要重新装满。结果他被解雇了。</br></p2></h3> <img src='image/store_worker_fired.jpg'; align='right'; style='height:200px'><br><br><br><br><br><br><br>`,
+            response_ends_trial: true,
+            prompt: `<h3>请按下空格键以继续实验。<h3>`
+        },
+        {   type: jsPsychCategorizeHtml,
+            choices: ['a', 'b', 'c', 'd'],
+            stimulus: `<h3><big>测验</big></h3><br>店员何时会被解雇? <br> 请按下选项相应的字母键（如选择a, 则按a键）<br><br>a. 当机器空了的时候。<br> b. 当机器卡住时。 <br> c. 当机器爆炸时。<br> d. 当机器没有声音时。`,
+            key_answer: 'a',
+            force_correct_button_press: true,
+            correct_text: '正确。',
+            incorrect_text: '错误。请重新选择。',
+            text_answer: '当机器空了的时候。',
+            feedback_duration: 3000
+        }]
+    };
+
+timeline.push(warning_quiz);
 
 let tv_array = create_tv_array(trial_objects);
 const trials = {

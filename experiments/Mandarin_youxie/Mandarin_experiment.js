@@ -1,7 +1,7 @@
 //initialize jspsych & show data when done
 const jsPsych = initJsPsych({
     show_progress_bar: true,
-    auto_update_progress_bar: false,
+    auto_update_progress_bar: true,
     on_finish: function () {
         jsPsych.data.displayData('csv');
       }
@@ -44,7 +44,7 @@ timeline.push(instructions);
 const cover_story = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: 
-            "<h3><strong><big>背景故事</big></strong></h3> <br> <img src='image/0.jpg'; alt='gumball_machine'; align='right'; style='height:200px'> <p2 align='left'><big> 你正在一家糖果店里测试一排口香糖机。这些是特殊的口香糖机，它们会语音播报你得到了多少颗口香糖。然而，这个报告有时会出错。</big></p2> <br><br> <img src='image/store_worker_1.jpg' alt='store_worker_sitting' align='left' style='height:200px'> <br><br> <p2 align='right'> <big> 店员告诉你，他的老板曾经威胁他，如果口香糖机空了，就解雇他，但他真的需要这份工作。他不能从收银台看到这些机器，但通常可以通过机器的播报来判断它们的装满程度。</big> </p2> <br><br><br> <img src='image/store_worker_2.jpg' alt='store_worker_standing' align='center' style='height:200px'> <p2 align='left'> <big> 他请你告诉他声明是正确还是错误，这样他就会知道机器是否为空，是否需要补充口香糖。</big> </p2> <br><br>", 
+            "<h3><strong><big><p2>背景故事</p2></big></strong></h3> <br> <img src='image/0.jpg'; alt='gumball_machine'; align='right'; style='height:200px'> <p2 align='left'><big> 你正在一家糖果店里测试一排口香糖机。这些是特殊的口香糖机，它们会语音播报你得到了多少颗口香糖。然而，这个报告有时会出错。</big></p2> <br><br> <img src='image/store_worker_1.jpg' alt='store_worker_sitting' align='left' style='height:200px'> <br><br> <p2 align='right'> <big> 店员告诉你，他的老板曾经威胁他，如果口香糖机空了，就解雇他，但他真的需要这份工作。他不能从收银台看到这些机器，但通常可以通过机器的播报来判断它们的装满程度。</big> </p2> <br><br><br> <img src='image/store_worker_2.jpg' alt='store_worker_standing' align='center' style='height:200px'> <p2 align='left'> <big> 他请你告诉他声明是正确还是错误，这样他就会知道机器是否为空，是否需要补充口香糖。</big> </p2> <br><br>", 
     choices: [" "],
     prompt: "<h3>请按下空格键以继续实验。<h3>"
 };
@@ -53,7 +53,7 @@ timeline.push(cover_story);
 const response_keys = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus:
-    '<p><font size="5"> 请将你的右手食指放在 <strong>J</strong> 键上，左手食指放在 <strong>F</strong> 键上。<br><br> 如果你同意口香糖机的播报，请按 <strong>F</strong> 键；如果你不同意，请按 <strong>J</strong> 键。<br>使用你的大拇指按下 <strong>空格键</strong> ，不要移动你的食指。<br> <strong>请记住，听到播报后，你有4秒钟通知店员。</strong> <br><br> <img src="image/keypress.jpg" alt="keyboard" align="center" style="height:400px"> <br><br> </p></font> ', 
+    '<p><font size="5"> 请将你的右手食指放在 <strong>J</strong> 键上，左手食指放在 <strong>F</strong> 键上。<br><br><img src="image/keypress.jpg"alt="keyboard" align="center" style="height:400px"> <br><br> 如果你同意口香糖机的播报，请按 <strong>F</strong> 键；如果你不同意，请按 <strong>J</strong> 键。<br>使用你的大拇指按下 <strong>空格键</strong> ，不要移动你的食指。<br> <strong><p2>请记住，听到播报后，你有4秒钟通知店员。</p2></strong> <br><br></p></font> ', 
     choices: [" "],
     prompt: "<h3>请按下空格键以继续实验。<h3>"
 };
@@ -173,14 +173,144 @@ const warning_quiz = {
             stimulus: `<h3><big>测验</big></h3><br>店员何时会被解雇? <br> 请按下选项相应的字母键（如选择a, 则按a键）<br><br>a. 当机器空了的时候。<br> b. 当机器卡住时。 <br> c. 当机器爆炸时。<br> d. 当机器没有声音时。`,
             key_answer: 'a',
             force_correct_button_press: true,
-            correct_text: '正确。',
-            incorrect_text: '错误。请重新选择。',
+            correct_text: '<p2><br><br>正确! </p2>',
+            incorrect_text: '<p2><br><br>错误。请重新选择。</p2> ',
             text_answer: '当机器空了的时候。',
             feedback_duration: 3000
-        }]
+        }
+        ]
     };
 
 timeline.push(warning_quiz);
+
+const practice_trials = {
+    timeline: [
+            {type: jsPsychHtmlKeyboardResponse,
+            choices: [' '],
+            stimulus: `<h3>我们现在先从四个练习实验开始。</h3> 请确保你的食指放在 J 和 F 键上。 <br><p2>请记住，在你听到播报后，你有4秒钟通知店员。</p2></br></h3> <br><br><br><br><br><br>`,
+            response_ends_trial: true,
+            prompt: `<h3>请按下空格键以开始练习。<h3>`},
+            {
+                type: jsPsychAudioKeyboardResponse,
+                choices: [""],
+                stimulus: 'audio/kaching.wav',
+                response_ends_trial: false,
+                trial_ends_after_audio: true,
+                trial_duration: 2000,
+                prompt: `<img src='image/0.jpg'; style='height:400px'>`
+            },
+            {
+                type: jsPsychAudioKeyboardResponse,
+                choices: ['f', 'j'],
+                stimulus: 'audio/suoyou.wav',
+                response_allowed_while_playing: false,
+                trial_duration: 4000,
+                prompt: `<img src='image/13.jpg'; style='height:400px'>`,
+                on_finish: function(data) {
+                    evaluate_response(data);
+                },
+                data: jsPsych.timelineVariable('data')
+            },
+            {
+                type: jsPsychHtmlKeyboardResponse,
+                choices: [' '],
+                stimulus: ``,
+                response_ends_trial: true,
+                prompt: `<h3>请按下空格键以继续。<h3>`
+            },
+            {
+                type: jsPsychAudioKeyboardResponse,
+                choices: [""],
+                stimulus: 'audio/kaching.wav',
+                response_ends_trial: false,
+                trial_ends_after_audio: true,
+                trial_duration: 2000,
+                prompt: `<img src='image/0.jpg'; style='height:400px'>`
+            },
+            {
+                type: jsPsychAudioKeyboardResponse,
+                choices: ['f', 'j'],
+                stimulus: 'audio/meiyou.wav',
+                response_allowed_while_playing: false,
+                trial_duration: 4000,
+                prompt: `<img src='image/13.jpg'; style='height:400px'>`,
+                on_finish: function(data) {
+                    evaluate_response(data);
+                },
+                data: jsPsych.timelineVariable('data')
+            },
+            {
+                type: jsPsychHtmlKeyboardResponse,
+                choices: [' '],
+                stimulus: ``,
+                response_ends_trial: true,
+                prompt: `<h3>请按下空格键以继续。<h3>`
+            },
+            {
+                type: jsPsychAudioKeyboardResponse,
+                choices: [""],
+                stimulus: 'audio/kaching.wav',
+                response_ends_trial: false,
+                trial_ends_after_audio: true,
+                trial_duration: 2000,
+                prompt: `<img src='image/0.jpg'; style='height:400px'>`
+            },
+            {
+                type: jsPsychAudioKeyboardResponse,
+                choices: ['f', 'j'],
+                stimulus: 'audio/suoyou.wav',
+                response_allowed_while_playing: false,
+                trial_duration: 4000,
+                prompt: `<img src='image/0.jpg'; style='height:400px'>`,
+                on_finish: function(data) {
+                    evaluate_response(data);
+                },
+                data: jsPsych.timelineVariable('data')
+            },
+            {
+                type: jsPsychHtmlKeyboardResponse,
+                choices: [' '],
+                stimulus: ``,
+                response_ends_trial: true,
+                prompt: `<h3>请按下空格键以继续。<h3>`
+            },
+            {
+                type: jsPsychAudioKeyboardResponse,
+                choices: [""],
+                stimulus: 'audio/kaching.wav',
+                response_ends_trial: false,
+                trial_ends_after_audio: true,
+                trial_duration: 2000,
+                prompt: `<img src='image/0.jpg'; style='height:400px'>`
+            },
+            {
+                type: jsPsychAudioKeyboardResponse,
+                choices: ['f', 'j'],
+                stimulus: 'audio/meiyou.wav',
+                response_allowed_while_playing: false,
+                trial_duration: 4000,
+                prompt: `<img src='image/0.jpg'; style='height:400px'>`,
+                on_finish: function(data) {
+                    evaluate_response(data);
+                },
+                data: jsPsych.timelineVariable('data')
+            },
+            {
+                type: jsPsychHtmlKeyboardResponse,
+                choices: [' '],
+                stimulus: ``,
+                response_ends_trial: true,
+                prompt: `<h3>请按下空格键以继续。<h3>`
+            },
+            {
+                type: jsPsychHtmlKeyboardResponse,
+                choices: [' '],
+                stimulus: `<h3>顺利完成！现在我们可以开始真正的实验了。</h3> 请确保你的食指放在 J 和 F 键上。 <br><p2>请记住，F 表示“同意”，J 表示“不同意”！。</p2></br></h3> <br><br><br><br><br><br>`,
+                response_ends_trial: true,
+                prompt: `<h3>请按下空格键以开始练习。<h3>`}
+    ]
+};
+timeline.push(practice_trials);
 
 let tv_array = create_tv_array(trial_objects);
 const trials = {
@@ -192,7 +322,7 @@ const trials = {
             response_ends_trial: false,
             trial_ends_after_audio: true,
             trial_duration: 2000,
-            prompt: `<img src='image/0.jpg'>`
+            prompt: `<img src='image/0.jpg'; style='height:400px'>`
         },
         {
             type: jsPsychAudioKeyboardResponse,
@@ -205,6 +335,13 @@ const trials = {
                 evaluate_response(data);
             },
             data: jsPsych.timelineVariable('data')
+        },
+        {
+            type: jsPsychHtmlKeyboardResponse,
+            choices: [' '],
+            stimulus: ``,
+            response_ends_trial: true,
+            prompt: `<h3>请按下空格键以继续。<h3>`
         }
     ],
     timeline_variables: tv_array,

@@ -62678,7 +62678,7 @@ var jsPsychSurvey = (function (jspsych) {
 	        required_error_text: {
 	            type: jspsych.ParameterType.STRING,
 	            pretty_name: "Required error text",
-	            default: "Please answer the question.",
+	            default: "请回答这个问题。",
 	        },
 	        /** String to display at the end of required questions. */
 	        required_question_label: {
@@ -62688,6 +62688,7 @@ var jsPsychSurvey = (function (jspsych) {
 	        },
 	    },
 	};
+	  
 	// available parameters for each question type
 	const all_question_params_req = ["type", "prompt"];
 	const all_question_params_opt = ["name", "required"];

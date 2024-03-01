@@ -371,7 +371,13 @@ const Mint = {
         },
         {   type: jsPsychHtmlKeyboardResponse,
             choices: [' '],
-            stimulus: `<img src='image/mint_prep_page.jpg'; style='height:400px'> <br>请从左到右依次说每一行的图片名称。这项任务将在两分钟后自动结束。<br><p2>请注意：由于音频较大，当您完成这项任务后，会出现一个空白页一到两分钟来上传数据，请您完成这项任务后不要关闭网页，当音频上传完毕时，实验会自动继续进行。</p2>`,
+            stimulus: `<p2>请注意：由于音频较大，当您完成这项任务后，会出现一个空白页一到两分钟来上传数据，请您完成这项任务后不要关闭网页，当音频上传完毕时，实验会自动继续进行。</p2>`,
+            response_ends_trial: true,
+            prompt: `<br><h3>按下空格开始实验<h3>`,
+        },
+        {   type: jsPsychHtmlKeyboardResponse,
+            choices: [' '],
+            stimulus: `<img src='image/mint_prep_page.jpg'; style='height:400px'> <br>请从左到右依次说每一行的图片名称。这项任务将在两分钟后自动结束，<p2>并紧接着会有一个空白的页面持续一到两分钟</p2>。`,
             response_ends_trial: true,
             prompt: `<br><h3>按下空格开始实验<h3>`,
         },
@@ -488,7 +494,7 @@ const leapQ = {
             type:jsPsychSurvey,
             pages: [
                 [
-                {type: 'html', prompt: "<p> 请按<p2>习得顺序</p2>列出你所学过或用过的语言（母语在先） </p> <p>请在以下列出最少 1 种语言、最多 5 种语言，并<b>按习得顺序排列</b>，也就是说，语言 1 是母语，语言 2 是第个学会的语言。</p>"},
+                {type: 'html', prompt: "<p> 请按<p2>习得顺序</p2>列出你所学过或用过的语言（母语在先） </p> <p>请在以下列出最少 1 种语言、最多 5 种语言，并<b>按习得顺序排列</b>，也就是说，语言 1 是母语，语言 2 是第二个学会的语言。</p>"},
                 {type: 'text', prompt: '语言1:', name: 'lang1_time', required: true},
                 {type: 'text', prompt: '语言2:', name: 'lang2_time'},
                 {type: 'text', prompt: '语言3:', name: 'lang3_time'},

@@ -4,7 +4,7 @@ const jsPsych = initJsPsych({
     auto_update_progress_bar: false,
     message_progress_bar: "实验完成进度条",
     on_finish: function () {
-        jsPsych.data.displayData('csv');
+        proliferate.submit({"trials": data.values()});
       }
   }); 
 let timeline = []; //empty timeline to which we will add later
@@ -28,6 +28,7 @@ const irb = {
     斯坦福大学语言学系邀请您参加一项研究。
     <BR><BR>您会完成一项跟语言有关的任务，例如读或听一些字、描述图片或场景、造句、或完成简单的语言游戏。
     <BR>本研究中没有已知的风险、成本或不适。
+    <BR><BR><strong>您必须年满十八周岁才能参与此项实验。</strong>
     <BR><BR>
     如果您同意参与这项研究，请继续。
     </p>
@@ -43,8 +44,18 @@ const irb = {
 // push to the timeline
 timeline.push(irb);
 
+//audio+microphone requirement
+const audio_microphone_requirement = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: "<p>这个实验将会播放音频并录制实验者的一些语音回答。<br><br>请您在安静的地方用电脑完成这个实验，并确保您把<strong>电脑音量调整至合适的程度</strong>并且您<strong>可以使用电脑麦克风</strong>。</p> <br><br>请按空格键继续。",
+    choices: [" "]
+};
+timeline.push(audio_microphone_requirement);
+
 const microphone = {
     type: jsPsychInitializeMicrophone,
+    device_select_message: "<p>请选择您想要使用的麦克风</p>",
+    button_label: "<p>使用这个麦克风。</p>"
 }
 
 timeline.push(microphone);
@@ -52,7 +63,7 @@ timeline.push(microphone);
 //instructions
 const instructions = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: "在接下来的实验中，你将听到一些句子。你的任务是根据你是否同意这些句子来回答“是”或“否”。这个实验应该需要大约10分钟的时间。 <br><br><strong>这个实验需要音频。请在安静的地方完成，并确保声音是打开的。 </strong> <br><br>当你准备好开始时，请按下空格键。",
+    stimulus: "在接下来的实验中，你将听到一些句子。你的任务是根据你是否同意这些句子来回答“是”或“否”。这个实验应该需要大约20分钟的时间。<br><br>当你准备好开始时，请按下空格键。",
     choices: [" "]
 };
 timeline.push(instructions);
@@ -170,7 +181,6 @@ const warning_quiz = {
     };
 
 timeline.push(warning_quiz);
-*/
 
 //practice trials
 const practice_trials = {
@@ -197,8 +207,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/13.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length))
-                    console.log(practice_trials.timeline.length)
+                    jsPsych.setProgressBar((data.trial_index) / 140)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -227,7 +236,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/13.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length))
+                    jsPsych.setProgressBar((data.trial_index) / 140)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -256,7 +265,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/0.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length))
+                    jsPsych.setProgressBar((data.trial_index) / 140)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -285,7 +294,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/0.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length))
+                    jsPsych.setProgressBar((data.trial_index) / 140)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -333,7 +342,7 @@ const trials = {
             trial_duration: 4000,
             prompt: jsPsych.timelineVariable('prompt'),
             on_finish: function(data) {
-                jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length))
+                jsPsych.setProgressBar((data.trial_index) / 140)
                 evaluate_response(data);
             },
             data: jsPsych.timelineVariable('data')
@@ -351,18 +360,18 @@ const trials = {
 }
 timeline.push(trials)
 
-/*
+
 const Mint = {
     timeline: [
         {   type: jsPsychHtmlKeyboardResponse,
             choices: [' '],
-            stimulus: `接下来您将看到8行图片。从左上角开始，请试着用中文说出每个东西的名称，并且请尽可能在不犯错的情况下快速回答。如果有任何您不知道或不记得的名称，请说“不知道”，然后继续说剩下图片的名称。如果在跳过一些图片之后想起了之前图片的正确名称，可以随时重新说那张图片正确名称（例如：之前的图是...）。请在3分钟内命名尽可能多的图片。`,
+            stimulus: `接下来您将看到8行图片。从左上角开始，请试着用中文说出每个东西的名称，并且请尽可能在不犯错的情况下快速回答。如果有任何您不知道或不记得的名称，请说“不知道”或“跳过”，然后继续说剩下图片的名称。如果在跳过一些图片之后想起了之前图片的正确名称，可以随时重新说那张图片正确名称（例如：之前的图是...）。请在2分钟内命名尽可能多的图片。`,
             response_ends_trial: true,
             prompt: `<br><h3>请按空格键继续<h3>`
         },
         {   type: jsPsychHtmlKeyboardResponse,
             choices: [' '],
-            stimulus: `<img src='image/mint_prep_page.jpg'; style='height:400px'> <br>这项任务将在三分钟后自动结束。`,
+            stimulus: `<img src='image/mint_prep_page.jpg'; style='height:400px'> <br>请从左到右依次说每一行的图片名称。这项任务将在两分钟后自动结束。<br><p2>请注意：由于音频较大，当您完成这项任务后，会出现一个空白页一到两分钟来上传数据，请您完成这项任务后不要关闭网页，当音频上传完毕时，实验会自动继续进行。</p2>`,
             response_ends_trial: true,
             prompt: `<br><h3>按下空格开始实验<h3>`,
         },
@@ -371,11 +380,10 @@ const Mint = {
             stimulus: ` <img src='image/mint_sprint.jpg'; style='height:600px'>`,
             recording_duration: 180000,
             show_done_button: false,
-            stimulus_duration: 180000,
+            stimulus_duration: 120000,
             on_finish: function(data) {
-                jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length));
+                jsPsych.setProgressBar((data.trial_index) / 140)
             },
-            data: jsPsych.timelineVariable('data')
         }
     ]
 }
@@ -448,74 +456,91 @@ const questionnaire = {
             {
                 type: 'text',
                 prompt: '如您有过某项问题，请说明（包括校正）',
-                name: 'immigration',
+                name: 'other_comments',
                 textbox_columns: 50
             },
-        ]
+        ],
     ],
+    on_finish: function(data) {
+        jsPsych.setProgressBar((data.trial_index) / 140)
+    },
     button_label_finish: '继续'
 };
 
 timeline.push(questionnaire);
 
 const leapQ = {
-    timeline: [
-    {
-        type: jsPsychSurveyHtmlForm,
-        preamble: '<p> 请按<p2>主次顺序</p2>列出你所学过或用过的语言 </p> <p>请在以下列出最多 5 种语言，并<b>按熟练程度排列</b>，也就是说，语言 1 是最熟练的语言，语言 2 是第二熟练的语言。</p>',
-        html: '<p> 语言1. <input name="first" type="text" />  语言2. <input name="second" type="text" /> 语言3. <input name="third" type="text" /> 语言4. <input name="third" type="text" /> 语言5. <input name="third" type="text" /> </p>',
-        button_label: '继续',
-        required: true,
-        on_finish: function(data) {
-            jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length));
+    timeline:[
+        {
+            type:jsPsychSurvey,
+            pages: [
+                [
+                {type: 'html', prompt: "<p> 请按<p2>主次顺序</p2>列出你所学过或用过的语言 </p> <p>请在以下列出最少 1 种语言、最多 5 种语言，并<b>按熟练程度排列</b>，也就是说，语言 1 是最熟练的语言，语言 2 是第二熟练的语言。</p>"},
+                {type: 'text', prompt: '语言1:', name: 'lang1_dom', required: true},
+                {type: 'text', prompt: '语言2:', name: 'lang2_dom'},
+                {type: 'text', prompt: '语言3:', name: 'lang3_dom'},
+                {type: 'text', prompt: '语言4:', name: 'lang4_dom'},
+                {type: 'text', prompt: '语言5:', name: 'lang5_dom'},
+                ]
+            ]
         },
-        data: jsPsych.timelineVariable('data')
+        {
+            type:jsPsychSurvey,
+            pages: [
+                [
+                {type: 'html', prompt: "<p> 请按<p2>习得顺序</p2>列出你所学过或用过的语言（母语在先） </p> <p>请在以下列出最少 1 种语言、最多 5 种语言，并<b>按习得顺序排列</b>，也就是说，语言 1 是母语，语言 2 是第个学会的语言。</p>"},
+                {type: 'text', prompt: '语言1:', name: 'lang1_time', required: true},
+                {type: 'text', prompt: '语言2:', name: 'lang2_time'},
+                {type: 'text', prompt: '语言3:', name: 'lang3_time'},
+                {type: 'text', prompt: '语言4:', name: 'lang4_time'},
+                {type: 'text', prompt: '语言5:', name: 'lang5_time'},
+                ]
+            ]
+        },
+        {
+            type:jsPsychSurvey,
+            pages: [
+                [
+                {type: 'html', prompt: "<p> 请列出目前你所接触每种语言时间的百分比<p2>（各项百分比之和应为100%） </p2></p>"},
+                {type: 'text', prompt: '语言1:', name: 'lang1_%', required: true},
+                {type: 'text', prompt: '语言2:', name: 'lang2_%'},
+                {type: 'text', prompt: '语言3:', name: 'lang3_%'},
+                {type: 'text', prompt: '语言4:', name: 'lang4_%'},
+                {type: 'text', prompt: '语言5:', name: 'lang5_%'},
+                ]
+            ]
+        },
+        {
+            type:jsPsychSurvey,
+            pages: [
+                [
+                {type: 'html', prompt: "<p> 如果有你所学过或用过的几种语言的阅读材料供你选择，你选择每种语言的比例会是怎样的？假定阅读材料的原文是另一种你所不熟悉的语言<p2>（各项百分比之和应为100%） </p2></p>"},
+                {type: 'text', prompt: '语言1:', name: 'lang1_read', required: true},
+                {type: 'text', prompt: '语言2:', name: 'lang2_read'},
+                {type: 'text', prompt: '语言3:', name: 'lang3_read'},
+                {type: 'text', prompt: '语言4:', name: 'lang4_read'},
+                {type: 'text', prompt: '语言5:', name: 'lang5_read'},
+                ]
+            ]
+        },
+        {
+            type:jsPsychSurvey,
+            pages: [
+                [
+                {type: 'html', prompt: "<p> 如果当你与一个语言能力和语言水平与你的语言能力和语言水平完全匹配的人进行口头交流的时候，让你选择某一种语言，你使用每种你所学过或用过的语言的百分比会是怎样的？请给出全部时间的百分比<p2>（各项百分比之和应为100%） </p2></p> </p2></p>"},
+                {type: 'text', prompt: '语言1:', name: 'lang1_oral', required: true},
+                {type: 'text', prompt: '语言2:', name: 'lang2_oral'},
+                {type: 'text', prompt: '语言3:', name: 'lang3_oral'},
+                {type: 'text', prompt: '语言4:', name: 'lang4_oral'},
+                {type: 'text', prompt: '语言5:', name: 'lang5_oral'},
+                ]
+            ]
+        },
+    ],
+    button_label_finish: '继续',
+    on_finish: function(data) {
+        jsPsych.setProgressBar((data.trial_index) / 140)
     },
-    {
-        type: jsPsychSurveyHtmlForm,
-        preamble: '<p> 请按<p2>习得顺序</p2>列出你所学过或用过的语言（母语在先） </p> <p>请在以下列出最多 5 种语言，并<b>按习得顺序排列</b>，也就是说，语言 1 是母语，语言 2 是第个学会的语言。</p>',
-        html: '<p> 语言1. <input name="first" type="text" />  语言2. <input name="second" type="text" /> 语言3. <input name="third" type="text" /> 语言4. <input name="third" type="text" /> 语言5. <input name="third" type="text" /> </p>',
-        button_label: '继续',
-        required: true,
-        on_finish: function(data) {
-            jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length));
-        },
-        data: jsPsych.timelineVariable('data')
-    },
-    {
-        type: jsPsychSurveyHtmlForm,
-        preamble: '<p> 请列出目前你所接触每种语言时间的百分比<p2>（各项百分比之和应为100%） </p2></p>',
-        html: '<p> 语言1. <input name="first" type="text" />  语言2. <input name="second" type="text" /> 语言3. <input name="third" type="text" /> 语言4. <input name="third" type="text" /> 语言5. <input name="third" type="text" /> </p> <p> 语言1百分比. <input name="first" type="text" />  语言2百分比. <input name="second" type="text" /> 语言3百分比. <input name="third" type="text" /> 语言4百分比. <input name="third" type="text" /> 语言5百分比. <input name="third" type="text" /> </p>',
-        button_label: '继续',
-        required: true,
-        on_finish: function(data) {
-            jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length));
-        },
-        data: jsPsych.timelineVariable('data')
-    },
-    {
-        type: jsPsychSurveyHtmlForm,
-        preamble: '<p> 如果有你所学过或用过的几种语言的阅读材料供你选择，你选择每种语言的比例会是怎样的？假定阅读材料的原文是另一种你所不熟悉的语言<p2>（各项百分比之和应为100%） </p2></p>',
-        html: '<p> 语言1. <input name="first" type="text" />  语言2. <input name="second" type="text" /> 语言3. <input name="third" type="text" /> 语言4. <input name="third" type="text" /> 语言5. <input name="third" type="text" /> </p> <p> 语言1百分比. <input name="first" type="text" />  语言2百分比. <input name="second" type="text" /> 语言3百分比. <input name="third" type="text" /> 语言4百分比. <input name="third" type="text" /> 语言5百分比. <input name="third" type="text" /> </p>',
-        button_label: '继续',
-        required: true,
-        on_finish: function(data) {
-            jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length));
-        },
-        data: jsPsych.timelineVariable('data')
-    },
-    {
-        type: jsPsychSurveyHtmlForm,
-        preamble: '<p> 如果当你与一个语言能力和语言水平与你的语言能力和语言水平完全匹配的人进行口头交流的时候，让你选择某一种语言，你使用每种你所学过或用过的语言的百分比会是怎样的？请给出全部时间的百分比<p2>（各项百分比之和应为100%） </p2></p>',
-        html: '<p> 语言1. <input name="first" type="text" />  语言2. <input name="second" type="text" /> 语言3. <input name="third" type="text" /> 语言4. <input name="third" type="text" /> 语言5. <input name="third" type="text" /> </p> <p> 语言1百分比. <input name="first" type="text" />  语言2百分比. <input name="second" type="text" /> 语言3百分比. <input name="third" type="text" /> 语言4百分比. <input name="third" type="text" /> 语言5百分比. <input name="third" type="text" /> </p>',
-        button_label: '继续',
-        required: true,
-        on_finish: function(data) {
-            jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length));
-        },
-        data: jsPsych.timelineVariable('data')
-    }
-    ]
 };
 
 timeline.push(leapQ);
@@ -667,9 +692,8 @@ const leapQlikert = {
     ],
     button_label_finish:'继续',
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length));
+        jsPsych.setProgressBar((data.trial_index) / 140)
     },
-    data: jsPsych.timelineVariable('data')
 };
 
 timeline.push(leapQlikert);
@@ -685,35 +709,35 @@ const language_experience_1 = {
             {
                 type: 'text',
                 prompt: '这是我的母语：',
-                name: 'language',
+                name: 'native_language',
                 textbox_columns: 10,
                 required: true
             },
             {
                 type: 'text',
                 prompt: '当你开始说这门语言时候的年龄：',
-                name: 'language_exp_1',
+                name: 'native_lang_speak_age',
                 textbox_columns: 10,
                 required: true
             },
             {
                 type: 'text',
                 prompt: '当你说得流畅时候的年龄：',
-                name: 'language_exp_2',
+                name: 'native_lang_prof_age',
                 textbox_columns: 10,
                 required: true
             },
             {
                 type: 'text',
                 prompt: '当你开始用这门语言阅读时候的年龄：',
-                name: 'language_exp_3',
+                name: 'native_lang_read_age',
                 textbox_columns: 10,
                 required: true
             },
             {
                 type: 'text',
                 prompt: '当你读得流畅时候的年龄：',
-                name: 'language_exp_4',
+                name: 'native_lang_readprof_age',
                 textbox_columns: 10,
                 required: true
             },
@@ -724,21 +748,21 @@ const language_experience_1 = {
             {
                 type: 'text',
                 prompt: '使用该语言的国家：',
-                name: 'language__env_1',
+                name: 'native_lang_country',
                 textbox_columns: 15,
                 required: true
             },
             {
                 type: 'text',
                 prompt: '使用该语言的家庭：',
-                name: 'language__env_2',
+                name: 'native_lang_family',
                 textbox_columns: 15,
                 required: true
             },
             {
                 type: 'text',
                 prompt: '使用该语言的学校或工作单位：',
-                name: 'language__env_3',
+                name: 'native_lang_work',
                 textbox_columns: 15,
                 required: true
             },
@@ -749,7 +773,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: '说',
-                name: 'speak_ability',
+                name: 'native_lang_speak_ability',
                 likert_scale_values: [
                   { value: '无'},
                   { value: '很差' },
@@ -768,7 +792,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: '理解口语',
-                name: 'oral_comprehension',
+                name: 'native_lang_oral_comprehension',
                 likert_scale_values: [
                   { value: '无'},
                   { value: '很差' },
@@ -787,7 +811,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: '阅读',
-                name: 'read_ability',
+                name: 'native_lang_read_ability',
                 likert_scale_values: [
                   { value: '无'},
                   { value: '很差' },
@@ -810,7 +834,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "与朋友互动",
-                name: 'friend_impact',
+                name: 'native_lang_friend_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -830,7 +854,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "与家庭互动",
-                name: 'family_impact',
+                name: 'native_lang_family_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -850,7 +874,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "阅读",
-                name: 'read_impact',
+                name: 'native_lang_read_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -870,7 +894,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "语言工具/自学",
-                name: 'selflearn_impact',
+                name: 'native_lang_selflearn_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -890,7 +914,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "看电视",
-                name: 'tv_impact',
+                name: 'native_lang_tv_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -910,7 +934,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "听收音机",
-                name: 'radio_impact',
+                name: 'native_lang_radio_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -930,7 +954,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "上网",
-                name: 'internet_impact',
+                name: 'native_lang_internet_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -954,7 +978,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "与朋友互动",
-                name: 'friend_time',
+                name: 'native_lang_friend_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -974,7 +998,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "与家庭互动",
-                name: 'family_time',
+                name: 'native_lang_family_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -994,7 +1018,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "阅读",
-                name: 'read_time',
+                name: 'native_lang_read_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1014,7 +1038,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "语言工具/自学",
-                name: 'selflearn_time',
+                name: 'native_lang_selflearn_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1034,7 +1058,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "看电视",
-                name: 'tv_time',
+                name: 'native_lang_tv_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1054,7 +1078,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "听收音机",
-                name: 'radio_time',
+                name: 'native_lang_radio_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1074,7 +1098,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: "上网",
-                name: 'internet_time',
+                name: 'native_lang_internet_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1098,7 +1122,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: '请做选择',
-                name: 'accent_self_eval',
+                name: 'native_lang_accent_self_eval',
                 likert_scale_values: [
                   { value: '没有'},
                   { value: '几乎没有' },
@@ -1121,7 +1145,7 @@ const language_experience_1 = {
             {
                 type: 'likert',
                 prompt: '在1-10的数值范围之内标出频率',
-                name: 'accent_other_eval',
+                name: 'native_lang_accent_other_eval',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1142,9 +1166,8 @@ const language_experience_1 = {
     ],
     button_label_finish: '继续',
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length));
-    },
-    data: jsPsych.timelineVariable('data')
+        jsPsych.setProgressBar((data.trial_index) / 140)
+    }
 };
 
 timeline.push(language_experience_1);
@@ -1155,32 +1178,32 @@ const language_experience_2 = {
         [
             {
                 type: 'text',
-                prompt: '这是我的第二语言：',
-                name: 'language',
+                prompt: '这是我的第二语言：（如果没有请直接前往下一个页面）',
+                name: 'second_language',
                 textbox_columns: 10,
             },
             {
                 type: 'text',
                 prompt: '当你开始说这门语言时候的年龄：',
-                name: 'language_exp_1',
+                name: 'second_lang_speak_age',
                 textbox_columns: 10
             },
             {
                 type: 'text',
                 prompt: '当你说得流畅时候的年龄：',
-                name: 'language_exp_2',
+                name: 'second_lang_read_age',
                 textbox_columns: 10
             },
             {
                 type: 'text',
                 prompt: '当你开始用这门语言阅读时候的年龄：',
-                name: 'language_exp_3',
+                name: 'second_lang_read_age',
                 textbox_columns: 10
             },
             {
                 type: 'text',
                 prompt: '当你读得流畅时候的年龄：',
-                name: 'language_exp_4',
+                name: 'second_lang_readprof_age',
                 textbox_columns: 10
             },
             {
@@ -1190,19 +1213,19 @@ const language_experience_2 = {
             {
                 type: 'text',
                 prompt: '使用该语言的国家：',
-                name: 'language__env_1',
+                name: 'second_lang_country',
                 textbox_columns: 15
             },
             {
                 type: 'text',
                 prompt: '使用该语言的家庭：',
-                name: 'language__env_2',
+                name: 'second_lang_family',
                 textbox_columns: 15
             },
             {
                 type: 'text',
                 prompt: '使用该语言的学校或工作单位：',
-                name: 'language__env_3',
+                name: 'second_lang_work',
                 textbox_columns: 15
             },
             {
@@ -1212,7 +1235,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: '说',
-                name: 'speak_ability',
+                name: 'second_lang_speak_ability',
                 likert_scale_values: [
                   { value: '无'},
                   { value: '很差' },
@@ -1230,7 +1253,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: '理解口语',
-                name: 'oral_comprehension',
+                name: 'second_lang_oral_comprehension',
                 likert_scale_values: [
                   { value: '无'},
                   { value: '很差' },
@@ -1248,7 +1271,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: '阅读',
-                name: 'read_ability',
+                name: 'second_lang_read_ability',
                 likert_scale_values: [
                   { value: '无'},
                   { value: '很差' },
@@ -1270,7 +1293,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "与朋友互动",
-                name: 'friend_impact',
+                name: 'second_lang_friend_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1289,7 +1312,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "与家庭互动",
-                name: 'family_impact',
+                name: 'second_lang_family_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1308,7 +1331,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "阅读",
-                name: 'read_impact',
+                name: 'second_lang_read_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1327,7 +1350,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "语言工具/自学",
-                name: 'selflearn_impact',
+                name: 'second_lang_selflearn_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1346,7 +1369,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "看电视",
-                name: 'tv_impact',
+                name: 'second_lang_tv_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1365,7 +1388,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "听收音机",
-                name: 'radio_impact',
+                name: 'second_lang_radio_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1384,7 +1407,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "上网",
-                name: 'internet_impact',
+                name: 'second_lang_internet_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1407,7 +1430,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "与朋友互动",
-                name: 'friend_time',
+                name: 'second_lang_friend_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1426,7 +1449,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "与家庭互动",
-                name: 'family_time',
+                name: 'second_lang_family_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1445,7 +1468,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "阅读",
-                name: 'read_time',
+                name: 'second_lang_read_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1464,7 +1487,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "语言工具/自学",
-                name: 'selflearn_time',
+                name: 'second_lang_selflearn_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1483,7 +1506,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "看电视",
-                name: 'tv_time',
+                name: 'second_lang_tv_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1502,7 +1525,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "听收音机",
-                name: 'radio_time',
+                name: 'second_lang_radio_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1521,7 +1544,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: "上网",
-                name: 'internet_time',
+                name: 'second_lang_internet_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1544,7 +1567,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: '请做选择',
-                name: 'accent_self_eval',
+                name: 'second_lang_accent_self_eval',
                 likert_scale_values: [
                   { value: '没有'},
                   { value: '几乎没有' },
@@ -1566,7 +1589,7 @@ const language_experience_2 = {
             {
                 type: 'likert',
                 prompt: '在1-10的数值范围之内标出频率',
-                name: 'accent_other_eval',
+                name: 'second_lang_accent_other_eval',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1586,9 +1609,8 @@ const language_experience_2 = {
     ],
     button_label_finish: '继续',
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length));
+        jsPsych.setProgressBar((data.trial_index) / 140)
     },
-    data: jsPsych.timelineVariable('data')
 };
 
 timeline.push(language_experience_2);
@@ -1599,32 +1621,32 @@ const language_experience_3 = {
         [
             {
                 type: 'text',
-                prompt: '这是我的第三语言：',
-                name: 'language',
+                prompt: '这是我的第三语言：（如果没有请直接前往下一个页面）',
+                name: 'third_language',
                 textbox_columns: 10,
             },
             {
                 type: 'text',
                 prompt: '当你开始说这门语言时候的年龄：',
-                name: 'language_exp_1',
+                name: 'third_lang_speak_age',
                 textbox_columns: 10
             },
             {
                 type: 'text',
                 prompt: '当你说得流畅时候的年龄：',
-                name: 'language_exp_2',
+                name: 'third_lang_prof_age',
                 textbox_columns: 10
             },
             {
                 type: 'text',
                 prompt: '当你开始用这门语言阅读时候的年龄：',
-                name: 'language_exp_3',
+                name: 'third_lang_read_age',
                 textbox_columns: 10
             },
             {
                 type: 'text',
                 prompt: '当你读得流畅时候的年龄：',
-                name: 'language_exp_4',
+                name: 'third_lang_readprof_age',
                 textbox_columns: 10
             },
             {
@@ -1634,19 +1656,19 @@ const language_experience_3 = {
             {
                 type: 'text',
                 prompt: '使用该语言的国家：',
-                name: 'language__env_1',
+                name: 'third_lang_country',
                 textbox_columns: 15
             },
             {
                 type: 'text',
-                prompt: '使用该语言的家庭：',
-                name: 'language__env_2',
+                prompt: '使用该语言的家人：',
+                name: 'third_lang_family',
                 textbox_columns: 15
             },
             {
                 type: 'text',
                 prompt: '使用该语言的学校或工作单位：',
-                name: 'language__env_3',
+                name: 'third_lang_work',
                 textbox_columns: 15
             },
             {
@@ -1656,7 +1678,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: '说',
-                name: 'speak_ability',
+                name: 'third_lang_speak_ability',
                 likert_scale_values: [
                   { value: '无'},
                   { value: '很差' },
@@ -1674,7 +1696,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: '理解口语',
-                name: 'oral_comprehension',
+                name: 'third_lang_oral_comprehension',
                 likert_scale_values: [
                   { value: '无'},
                   { value: '很差' },
@@ -1692,7 +1714,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: '阅读',
-                name: 'read_ability',
+                name: 'third_lang_read_ability',
                 likert_scale_values: [
                   { value: '无'},
                   { value: '很差' },
@@ -1714,7 +1736,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "与朋友互动",
-                name: 'friend_impact',
+                name: 'third_lang_friend_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1733,7 +1755,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "与家庭互动",
-                name: 'family_impact',
+                name: 'third_lang_family_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1752,7 +1774,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "阅读",
-                name: 'read_impact',
+                name: 'third_lang_read_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1771,7 +1793,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "语言工具/自学",
-                name: 'selflearn_impact',
+                name: 'third_lang_selflearn_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1790,7 +1812,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "看电视",
-                name: 'tv_impact',
+                name: 'third_lang_tv_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1809,7 +1831,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "听收音机",
-                name: 'radio_impact',
+                name: 'third_lang_radio_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1828,7 +1850,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "上网",
-                name: 'internet_impact',
+                name: 'third_lang_internet_impact',
                 likert_scale_min_label: '没影响',
                 likert_scale_max_label: '最重要影响',
                 likert_scale_values: [
@@ -1851,7 +1873,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "与朋友互动",
-                name: 'friend_time',
+                name: 'third_lang_friend_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1870,7 +1892,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "与家庭互动",
-                name: 'family_time',
+                name: 'third_lang_family_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1889,7 +1911,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "阅读",
-                name: 'read_time',
+                name: 'third_lang_read_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1908,7 +1930,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "语言工具/自学",
-                name: 'selflearn_time',
+                name: 'third_lang_selflearn_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1927,7 +1949,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "看电视",
-                name: 'tv_time',
+                name: 'third_lang_tv_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1946,7 +1968,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "听收音机",
-                name: 'radio_time',
+                name: 'third_lang_radio_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1965,7 +1987,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: "上网",
-                name: 'internet_time',
+                name: 'third_lang_internet_time',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -1988,7 +2010,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: '请做选择',
-                name: 'accent_self_eval',
+                name: 'third_lang_accent_self_eval',
                 likert_scale_values: [
                   { value: '没有'},
                   { value: '几乎没有' },
@@ -2010,7 +2032,7 @@ const language_experience_3 = {
             {
                 type: 'likert',
                 prompt: '在1-10的数值范围之内标出频率',
-                name: 'accent_other_eval',
+                name: 'third_lang_accent_other_eval',
                 likert_scale_min_label: '从来没有',
                 likert_scale_max_label: '总是如此',
                 likert_scale_values: [
@@ -2028,7 +2050,10 @@ const language_experience_3 = {
             },
         ]
     ],
-    button_label_finish: '继续'
+    on_finish: function(data) {
+        jsPsych.setProgressBar((data.trial_index) / 140);
+    },
+    button_label_finish: '继续',
 };
 
 timeline.push(language_experience_3);
@@ -2062,8 +2087,8 @@ const payment_info = {
             },
             {
                 type: 'text',
-                prompt: '请您提供您的电子邮箱email地址（仅作转账使用）。',
-                name: 'payment_emailr',
+                prompt: '请您提供您的电子邮箱email地址。如果您没有邮箱地址，请您填写自己的微信账号。（仅作转账使用）',
+                name: 'payment_email/wechat',
                 textbox_columns: 100
             },
             {
@@ -2076,9 +2101,8 @@ const payment_info = {
     ],
     button_label_finish: '继续',
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index - 1) / (timeline.length + (tv_array.length * 3) + practice_trials.timeline.length));
+        jsPsych.setProgressBar((data.trial_index) / 140)
     },
-    data: jsPsych.timelineVariable('data')
 };
 
 timeline.push(payment_info);
@@ -2089,6 +2113,6 @@ const thankyou = {
     choices: ['完成']
   };
 
-timeline.push(thankyou);*/
+timeline.push(thankyou);
 
 jsPsych.run(timeline);

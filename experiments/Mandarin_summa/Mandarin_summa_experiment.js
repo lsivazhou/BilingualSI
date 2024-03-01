@@ -3,10 +3,11 @@ const jsPsych = initJsPsych({
     show_progress_bar: true,
     auto_update_progress_bar: false,
     message_progress_bar: "实验完成进度条",
-    on_finish: function () {
-        proliferate.submit({"trials": data.values()});
-      }
-  }); 
+    on_finish: function(data) {
+        Proliferate.submit({trials: data.values()});
+    }
+}); 
+
 let timeline = []; //empty timeline to which we will add later
 
 //preload audio files
@@ -760,7 +761,7 @@ const language_experience_1 = {
             },
             {
                 type: 'text',
-                prompt: '使用该语言的家庭：',
+                prompt: '使用该语言的家人：',
                 name: 'native_lang_family',
                 textbox_columns: 15,
                 required: true
@@ -1224,7 +1225,7 @@ const language_experience_2 = {
             },
             {
                 type: 'text',
-                prompt: '使用该语言的家庭：',
+                prompt: '使用该语言的家人：',
                 name: 'second_lang_family',
                 textbox_columns: 15
             },

@@ -12,7 +12,7 @@ let timeline = []; //empty timeline to which we will add later
 
 //preload audio files
 const preload_audio_array = ['audio/2.wav', 'audio/6.wav', 'audio/10.wav', 'audio/kaching.wav', 'audio/meiyou.wav', 'audio/suoyou.wav', 'audio/yixie.wav', 'audio/youxie.wav'];
-const preload_image_array = ['image/0.jpg', 'image/1.jpg', 'image/2.jpg', 'image/3.jpg', 'image/4.jpg', 'image/5.jpg', 'image/6.jpg', 'image/7.jpg', 'image/8.jpg', 'image/9.jpg', 'image/10.jpg', 'image/11.jpg', 'image/12.jpg', 'image/13.jpg', 'keypress.jpg', 'mint_prep_page_english.jpg', 'mint_prep_page.jpg', 'mint_sprint.jpg', 'store_worker_1.jpg', 'store_worker_2.jpg', 'store_worker_fired.jpg', 'store_worker_gumball.jpg' ];
+const preload_image_array = ['image/0.jpg', 'image/1.jpg', 'image/2.jpg', 'image/3.jpg', 'image/4.jpg', 'image/5.jpg', 'image/6.jpg', 'image/7.jpg', 'image/8.jpg', 'image/9.jpg', 'image/10.jpg', 'image/11.jpg', 'image/12.jpg', 'image/13.jpg', 'image/keypress.jpg', 'image/mint_prep_page_english.jpg', 'image/mint_prep_page.jpg', 'image/mint_sprint.jpg', 'image/store_worker_1.jpg', 'image/store_worker_2.jpg', 'image/store_worker_fired.jpg', 'image/store_worker_gumball.jpg' ];
 const preload_trial = {
     type: jsPsychPreload,
     audio: preload_audio_array,

@@ -46,7 +46,7 @@ function set_trial_order(trial_array) {
         }
     }
     for (let i = 0; i < trial_array.length; i++) {
-        if (trial_array[i].data.type === "summa=f") {
+        if (trial_array[i].data.type === "summa-f") {
             if (trial_array[i+1].data.type === "critical") {
                 // find the first non-critical trial
                 const firstNoncriticalIndex = trial_array.findIndex(item => item.type !== "critical");

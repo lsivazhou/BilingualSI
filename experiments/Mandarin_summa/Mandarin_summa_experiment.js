@@ -4,7 +4,7 @@ const jsPsych = initJsPsych({
     auto_update_progress_bar: false,
     message_progress_bar: "实验完成进度条",
     on_finish: function(data) {
-        proliferate.submit({trials: data.values()});
+        proliferate.submit({"trials": data.values()});
     }
 }); 
 

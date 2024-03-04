@@ -361,7 +361,7 @@ const trials = {
 }
 timeline.push(trials)
 
-
+/*
 const Mint = {
     timeline: [
         {   type: jsPsychHtmlKeyboardResponse,
@@ -396,7 +396,7 @@ const Mint = {
 }
 
 timeline.push(Mint)
-
+*/
 //LEAPQ questionnaire + demographic questions
 const questionnaire = {
     type: jsPsychSurvey,

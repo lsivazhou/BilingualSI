@@ -64,7 +64,7 @@ timeline.push(instructions);
 const cover_story = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: 
-            "<h3><strong><big><p2>背景故事</p2></big></strong></h3> <br> <img src='image/0.jpg'; alt='gumball_machine'; align='right'; style='height:200px'> <p2 align='left'><big> 你正在一家糖果店里测试一排口香糖机。这些是特殊的口香糖机，它们会语音播报你得到了多少颗口香糖。然而，这个报告有时会出错。</big></p2> <br><br> <img src='image/store_worker_1.jpg' alt='store_worker_sitting' align='left' style='height:200px'> <br><br> <p2 align='right'> <big> 店员告诉你，他的老板曾经威胁他，如果口香糖机空了，就解雇他，但他真的需要这份工作。他不能从收银台看到这些机器，但通常可以通过机器的播报来判断它们的装满程度。</big> </p2> <br><br><br> <img src='image/store_worker_2.jpg' alt='store_worker_standing' align='center' style='height:200px'> <p2 align='left'> <big> 他请你告诉他播报是正确还是错误的，这样他就会知道机器是否空了，他是否需要补充口香糖。</big> </p2> <br><br>", 
+            "<h3><strong><big><p2>背景故事</p2></big></strong></h3> <br> <img src='image/0.jpg'; alt='gumball_machine'; align='right'; style='height:200px'> <p2 align='left'><big> 你正在一家糖果店里测试一排口香糖机。这些口香糖机很特别，它们能够通过语音播报告诉你多少颗口香糖出来了。但是，有时候这个报告会出错。</big></p2> <br><br> <img src='image/store_worker_1.jpg' alt='store_worker_sitting' align='left' style='height:200px'> <br><br> <p2 align='right'> <big> 店员告诉你，他的老板曾经威胁他，如果口香糖机空了，就解雇他，但他真的需要这份工作。他不能从收银台看到这些机器，但通常可以通过机器的播报来判断它们的装满程度。</big> </p2> <br><br><br> <img src='image/store_worker_2.jpg' alt='store_worker_standing' align='center' style='height:200px'> <p2 align='left'> <big> 他请你告诉他播报是正确还是错误的，这样他就知道机器是否空了，他是否需要补充口香糖。</big> </p2> <br><br>", 
     choices: [" "],
     prompt: "<h3>请按下空格键以继续实验。<h3>"
 };
@@ -143,7 +143,7 @@ const tutorial_2 = {
         },
         {   type: jsPsychHtmlKeyboardResponse,
             choices: [' '],
-            stimulus: `<h3><big><p2> 你告诉店员你不同意这个声明。因此，他知道口香糖机不是空的，不需要重新装满机器。 </p2></big></h3><img src='image/store_worker_gumball.jpg'; style='height:400px'>`,
+            stimulus: `<h3><big><p2> 你告诉店员你不同意这个播报。因此，他知道口香糖机不是空的，他不需要去添口香糖。 </p2></big></h3><img src='image/store_worker_gumball.jpg'; style='height:400px'>`,
             response_ends_trial: true,
             prompt: `<h3>请按下空格键以继续实验。<h3>`
         }

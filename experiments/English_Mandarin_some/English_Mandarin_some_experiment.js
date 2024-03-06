@@ -47,18 +47,10 @@ timeline.push(irb);
 //audio+microphone requirement
 const audio_microphone_requirement = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<p>这个实验将会播放音频并录制实验者的一些语音回答。<BR><BR><strong><p2>您必须年满十八周岁才能参与此项实验，并且您需要会说中文、英文两种语言。</p2></strong> <br><br>请您在安静的地方用电脑完成这个实验，并确保您把<strong><p2>电脑音量调整至合适的程度</p2></strong>并且您<strong><p2>可以使用电脑麦克风</p2></strong>。</p> <br><br>请按空格键继续。",
+    stimulus: "<p>这个实验将会播放音频。<BR><BR><strong><p2>您必须年满十八周岁才能参与此项实验，并且您需要会说中文、英文两种语言。</p2></strong> <br><br>请您在安静的地方用电脑完成这个实验，并确保您把<strong><p2>电脑音量调整至合适的程度</p2></strong>。 <br><br>请按空格键继续。</p>",
     choices: [" "]
 };
 timeline.push(audio_microphone_requirement);
-
-const microphone = {
-    type: jsPsychInitializeMicrophone,
-    device_select_message: "<p>请选择您想要使用的麦克风</p>",
-    button_label: "<p>使用这个麦克风。</p>"
-}
-
-timeline.push(microphone);
 
 //instructions
 const instructions = {
@@ -1454,55 +1446,6 @@ const languageattitudes = {
 };
 
 timeline.push(languageattitudes)
-
-//payment information
-const payment_info = {
-    type: jsPsychSurvey,
-    pages: [
-        [   
-            {
-            type: 'html',
-            prompt: '<br><br>这个页面会问您要支付信息，以让研究人员转您报酬。如果您没有Prolific账户，请您填写自己的信息。如果您通过Prolific参与实验，您将通过Prolific平台收到报酬。',
-            },
-            {
-                type: 'drop-down',
-                prompt: '请问您接受哪种付款方式：',
-                name: 'payment_method',
-                options: ['微信', '支付宝', 'venmo', 'zelle']
-            },
-            {
-                type: 'text',
-                prompt: '请您填写自己的姓名（仅作转账使用）',
-                name: 'payment_name',
-                textbox_columns: 50
-            },
-            {
-                type: 'text',
-                prompt: '请您提供您的收款账号（仅作转账使用）。研究人员将通过此账号来给您您参加此实验的报酬。',
-                name: 'payment_number',
-                textbox_columns: 50
-            },
-            {
-                type: 'text',
-                prompt: '请您提供您的电子邮箱email地址。如果您没有邮箱地址，请您填写自己的微信账号。（仅作转账使用）',
-                name: 'payment_email/wechat',
-                textbox_columns: 100
-            },
-            {
-                type: 'multi-choice',
-                prompt: "请问您是否是美国公民",
-                name: 'participant_citizenship',
-                options: ['是', '否']
-            },
-        ]
-    ],
-    button_label_finish: '继续',
-    on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
-    },
-};
-
-timeline.push(payment_info);
 
 const feedback_thankyou = {
     type: jsPsychSurvey,

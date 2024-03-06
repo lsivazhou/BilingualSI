@@ -47,18 +47,10 @@ timeline.push(irb);
 //audio+microphone requirement
 const audio_microphone_requirement = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<p>这个实验将会播放音频并录制实验者的一些语音回答。<BR><BR><strong><p2>您必须年满十八周岁才能参与此项实验，并且您需要会说中文、英文两种语言。</p2></strong> <br><br>请您在安静的地方用电脑完成这个实验，并确保您把<strong><p2>电脑音量调整至合适的程度</p2></strong>并且您<strong><p2>可以使用电脑麦克风</p2></strong>。</p> <br><br>请按空格键继续。",
+    stimulus: "<p>这个实验将会播放音频。<BR><BR><strong><p2>您必须年满十八周岁才能参与此项实验，并且您需要会说中文、英文两种语言。</p2></strong> <br><br>请您在安静的地方用电脑完成这个实验，并确保您把<strong><p2>电脑音量调整至合适的程度</p2></strong>。 <br><br>请按空格键继续。</p>",
     choices: [" "]
 };
 timeline.push(audio_microphone_requirement);
-
-const microphone = {
-    type: jsPsychInitializeMicrophone,
-    device_select_message: "<p>请选择您想要使用的麦克风</p>",
-    button_label: "<p>使用这个麦克风。</p>"
-}
-
-timeline.push(microphone);
 
 //instructions
 const instructions = {
@@ -1503,29 +1495,5 @@ const payment_info = {
 };
 
 timeline.push(payment_info);
-
-const feedback_thankyou = {
-    type: jsPsychSurvey,
-    pages: [
-        [   
-            {
-                type: 'text',
-                prompt: '如果您有任何问题或是和我们分享的信息，请您在此处填写：',
-                name: 'comments',
-                textbox_columns: 150
-            },
-            {
-                type: 'html',
-                prompt: '<br><br><p>感谢您完成实验！</p> <p>请点击“完成”按钮提交您的回答并完成研究。</p>',
-                },
-        ]
-    ],
-    button_label_finish: '完成',
-    on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
-    },
-};
-
-timeline.push(feedback_thankyou);
 
 jsPsych.run(timeline);

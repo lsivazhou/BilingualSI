@@ -1,9 +1,9 @@
 function evaluate_response(data) {
     if (data.response == 'f' & data.correct == 'f') {
         data.result = "hit"
-    } else if (data.response == 'k' & data.correct == 'k') {
+    } else if (data.response == 'j' & data.correct == 'j') {
         data.result = "correct_rejection"
-    } else if (data.response == 'f' & data.correct == 'k') {
+    } else if (data.response == 'f' & data.correct == 'j') {
         data.result = "miss"
     } else  {
         data.result = "false_alarm"

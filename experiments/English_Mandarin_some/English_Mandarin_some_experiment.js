@@ -55,7 +55,7 @@ timeline.push(audio_microphone_requirement);
 //instructions
 const instructions = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: "在接下来的实验中，你将听到一些句子。你的任务是根据你是否同意这些句子来回答“是”或“否”。这个实验应该需要大约20分钟的时间。<br><br>当你准备好开始时，请按下空格键。",
+    stimulus: "在接下来的实验中，你将听到一些句子。你的任务是根据你是否同意这些句子来回答“是”或“否”。这个实验大约需要20分钟。<br><br>当你准备好开始时，请按下空格键。",
     choices: [" "]
 };
 timeline.push(instructions);

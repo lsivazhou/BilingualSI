@@ -143,7 +143,7 @@ const tutorial_2 = {
         },
         {   type: jsPsychHtmlKeyboardResponse,
             choices: [' '],
-            stimulus: `<h3><big><p2> 你告诉店员你不同意这个播报。因此，他知道口香糖机不是空的，不需要重新装满机器。 </p2></big></h3><img src='image/store_worker_gumball.jpg'; style='height:400px'>`,
+            stimulus: `<h3><big><p2> 你告诉店员你不同意这个播报。因此，他知道口香糖机不是空的，他不需要去添口香糖。 </p2></big></h3><img src='image/store_worker_gumball.jpg'; style='height:400px'>`,
             response_ends_trial: true,
             prompt: `<h3>请按下空格键以继续实验。<h3>`
         }

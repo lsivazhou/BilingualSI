@@ -199,7 +199,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/13.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 243)
+                    jsPsych.setProgressBar((data.trial_index) / 230)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -228,7 +228,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/13.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 243)
+                    jsPsych.setProgressBar((data.trial_index) / 230)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -257,7 +257,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/0.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 243)
+                    jsPsych.setProgressBar((data.trial_index) / 230)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -286,7 +286,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/0.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 243)
+                    jsPsych.setProgressBar((data.trial_index) / 230)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -333,7 +333,7 @@ const English_trials = {
             trial_duration: 4000,
             prompt: jsPsych.timelineVariable('prompt'),
             on_finish: function(data) {
-                jsPsych.setProgressBar((data.trial_index) / 243)
+                jsPsych.setProgressBar((data.trial_index) / 230)
                 evaluate_response(data);
             },
             data: jsPsych.timelineVariable('data')
@@ -395,7 +395,7 @@ const Mandarin_trials = {
             trial_duration: 4000,
             prompt: jsPsych.timelineVariable('prompt'),
             on_finish: function(data) {
-                jsPsych.setProgressBar((data.trial_index) / 243)
+                jsPsych.setProgressBar((data.trial_index) / 230)
                 evaluate_response(data);
             },
             data: jsPsych.timelineVariable('data')
@@ -464,7 +464,7 @@ const questionnaire = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     }
 };
 
@@ -832,7 +832,7 @@ const languagehistory = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
@@ -1134,7 +1134,7 @@ const languageuse = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
@@ -1288,7 +1288,7 @@ const languageproficiency = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
@@ -1441,59 +1441,34 @@ const languageattitudes = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
 timeline.push(languageattitudes)
 
-//payment information
-const payment_info = {
+const feedback_thankyou = {
     type: jsPsychSurvey,
     pages: [
         [   
             {
-            type: 'html',
-            prompt: '<br><br>这个页面会问您要支付信息，以让研究人员转您报酬。如果您没有Prolific账户，请您填写自己的信息。如果您通过Prolific参与实验，您将通过Prolific平台收到报酬。',
-            },
-            {
-                type: 'drop-down',
-                prompt: '请问您接受哪种付款方式：',
-                name: 'payment_method',
-                options: ['微信', '支付宝', 'venmo', 'zelle']
-            },
-            {
                 type: 'text',
-                prompt: '请您填写自己的姓名（仅作转账使用）',
-                name: 'payment_name',
-                textbox_columns: 50
+                prompt: '如果您有任何问题或是和我们分享的信息，请您在此处填写：',
+                name: 'comments',
+                textbox_columns: 150
             },
             {
-                type: 'text',
-                prompt: '请您提供您的收款账号（仅作转账使用）。研究人员将通过此账号来给您您参加此实验的报酬。',
-                name: 'payment_number',
-                textbox_columns: 50
-            },
-            {
-                type: 'text',
-                prompt: '请您提供您的电子邮箱email地址。如果您没有邮箱地址，请您填写自己的微信账号。（仅作转账使用）',
-                name: 'payment_email/wechat',
-                textbox_columns: 100
-            },
-            {
-                type: 'multi-choice',
-                prompt: "请问您是否是美国公民",
-                name: 'participant_citizenship',
-                options: ['是', '否']
-            },
+                type: 'html',
+                prompt: '<br><br><p>感谢您完成实验！</p> <p>请点击“完成”按钮提交您的回答并完成研究。</p>',
+                },
         ]
     ],
-    button_label_finish: '继续',
+    button_label_finish: '完成',
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
-timeline.push(payment_info);
+timeline.push(feedback_thankyou);
 
 jsPsych.run(timeline);

@@ -47,7 +47,7 @@ timeline.push(irb);
 //audio+microphone requirement
 const audio_microphone_requirement = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: "<p>这个实验将会播放音频并录制实验者的一些语音回答。<BR><BR><strong><p2>您必须年满十八周岁才能参与此项实验，并且您需要会说中文、英文两种语言。</p2></strong> <br><br>请您在安静的地方用电脑完成这个实验，并确保您把<strong><p2>电脑音量调整至合适的程度</p2></strong>并且您<strong><p2>可以使用电脑麦克风</p2></strong>。</p> <br><br>请按空格键继续。",
+    stimulus: "<p>这个实验将会播放音频。<BR><BR><strong><p2>您必须年满十八周岁才能参与此项实验，并且您需要会说中文、英文两种语言。</p2></strong> <br><br>请您在安静的地方用电脑完成这个实验，并确保您把<strong><p2>电脑音量调整至合适的程度</p2></strong>。 <br><br>请按空格键继续。</p>",
     choices: [" "]
 };
 timeline.push(audio_microphone_requirement);
@@ -199,7 +199,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/13.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 243)
+                    jsPsych.setProgressBar((data.trial_index) / 230)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -228,7 +228,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/13.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 243)
+                    jsPsych.setProgressBar((data.trial_index) / 230)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -257,7 +257,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/0.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 243)
+                    jsPsych.setProgressBar((data.trial_index) / 230)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -286,7 +286,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/0.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 243)
+                    jsPsych.setProgressBar((data.trial_index) / 230)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -334,7 +334,7 @@ const Mandarin_trials = {
             trial_duration: 4000,
             prompt: jsPsych.timelineVariable('prompt'),
             on_finish: function(data) {
-                jsPsych.setProgressBar((data.trial_index) / 243)
+                jsPsych.setProgressBar((data.trial_index) / 230)
                 evaluate_response(data);
             },
             data: jsPsych.timelineVariable('data')
@@ -395,7 +395,7 @@ const English_trials = {
             trial_duration: 4000,
             prompt: jsPsych.timelineVariable('prompt'),
             on_finish: function(data) {
-                jsPsych.setProgressBar((data.trial_index) / 243)
+                jsPsych.setProgressBar((data.trial_index) / 230)
                 evaluate_response(data);
             },
             data: jsPsych.timelineVariable('data')
@@ -464,7 +464,7 @@ const questionnaire = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     }
 };
 
@@ -832,7 +832,7 @@ const languagehistory = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
@@ -1134,7 +1134,7 @@ const languageuse = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
@@ -1288,7 +1288,7 @@ const languageproficiency = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
@@ -1441,7 +1441,7 @@ const languageattitudes = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
@@ -1465,7 +1465,7 @@ const feedback_thankyou = {
     ],
     button_label_finish: '完成',
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 

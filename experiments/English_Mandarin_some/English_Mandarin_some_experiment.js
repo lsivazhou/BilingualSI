@@ -199,7 +199,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/13.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 243)
+                    jsPsych.setProgressBar((data.trial_index) / 230)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -228,7 +228,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/13.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 243)
+                    jsPsych.setProgressBar((data.trial_index) / 200)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -257,7 +257,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/0.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 243)
+                    jsPsych.setProgressBar((data.trial_index) / 230)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -286,7 +286,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/0.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 243)
+                    jsPsych.setProgressBar((data.trial_index) / 230)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')
@@ -333,7 +333,7 @@ const English_trials = {
             trial_duration: 4000,
             prompt: jsPsych.timelineVariable('prompt'),
             on_finish: function(data) {
-                jsPsych.setProgressBar((data.trial_index) / 243)
+                jsPsych.setProgressBar((data.trial_index) / 230)
                 evaluate_response(data);
             },
             data: jsPsych.timelineVariable('data')
@@ -395,7 +395,7 @@ const Mandarin_trials = {
             trial_duration: 4000,
             prompt: jsPsych.timelineVariable('prompt'),
             on_finish: function(data) {
-                jsPsych.setProgressBar((data.trial_index) / 243)
+                jsPsych.setProgressBar((data.trial_index) / 230)
                 evaluate_response(data);
             },
             data: jsPsych.timelineVariable('data')
@@ -464,7 +464,7 @@ const questionnaire = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     }
 };
 
@@ -832,7 +832,7 @@ const languagehistory = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
@@ -1134,7 +1134,7 @@ const languageuse = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
@@ -1288,7 +1288,7 @@ const languageproficiency = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
@@ -1441,7 +1441,7 @@ const languageattitudes = {
         ],
     ],
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 
@@ -1465,7 +1465,7 @@ const feedback_thankyou = {
     ],
     button_label_finish: '完成',
     on_finish: function(data) {
-        jsPsych.setProgressBar((data.trial_index) / 243)
+        jsPsych.setProgressBar((data.trial_index) / 230)
     },
 };
 

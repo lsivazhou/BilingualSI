@@ -228,7 +228,7 @@ const practice_trials = {
                 trial_duration: 4000,
                 prompt: `<img src='image/13.jpg'; style='height:400px'>`,
                 on_finish: function(data) {
-                    jsPsych.setProgressBar((data.trial_index) / 200)
+                    jsPsych.setProgressBar((data.trial_index) / 230)
                     evaluate_response(data);
                 },
                 data: jsPsych.timelineVariable('data')

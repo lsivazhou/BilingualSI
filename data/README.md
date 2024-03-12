@@ -1,1 +1,1 @@
-place holder for data description
+This folder includes raw data and cleaned data.

@@ -31,6 +31,10 @@ workerid,proliferate.condition,correct,response,result,rt,stimulus
 100,Mandarin_English_summa,,j,false_alarm,1931,audio/meiyou.wav
 100,Mandarin_English_summa,,j,false_alarm,1520,audio/suoyou.wav
 100,Mandarin_English_summa,,f,false_alarm,1803,audio/meiyou.wav
+126,Mandarin_English_summa,,f,false_alarm,2229,audio/suoyou.wav
+126,Mandarin_English_summa,,j,false_alarm,2331,audio/meiyou.wav
+126,Mandarin_English_summa,,j,false_alarm,1651,audio/suoyou.wav
+126,Mandarin_English_summa,,f,false_alarm,3771,audio/meiyou.wav
 108,Mandarin_English_summa,,f,false_alarm,611,audio/suoyou.wav
 108,Mandarin_English_summa,,j,false_alarm,779,audio/meiyou.wav
 108,Mandarin_English_summa,,j,false_alarm,1171,audio/suoyou.wav
@@ -47,6 +51,10 @@ workerid,proliferate.condition,correct,response,result,rt,stimulus
 107,English_Mandarin_summa,,,false_alarm,NA,audio/none.wav
 107,English_Mandarin_summa,,,false_alarm,NA,audio/all.wav
 107,English_Mandarin_summa,,,false_alarm,NA,audio/none.wav
+124,English_Mandarin_summa,,f,false_alarm,1581,audio/all.wav
+124,English_Mandarin_summa,,j,false_alarm,1440,audio/none.wav
+124,English_Mandarin_summa,,j,false_alarm,1411,audio/all.wav
+124,English_Mandarin_summa,,f,false_alarm,1461,audio/none.wav
 119,English_Mandarin_summa,,f,false_alarm,2789,audio/all.wav
 119,English_Mandarin_summa,,j,false_alarm,3856,audio/none.wav
 119,English_Mandarin_summa,,j,false_alarm,1733,audio/all.wav
@@ -63,6 +71,10 @@ workerid,proliferate.condition,correct,response,result,rt,stimulus
 115,Mandarin_English_some,,j,false_alarm,2229,audio/meiyou.wav
 115,Mandarin_English_some,,j,false_alarm,1581,audio/suoyou.wav
 115,Mandarin_English_some,,f,false_alarm,1691,audio/meiyou.wav
+122,Mandarin_English_some,,f,false_alarm,3767,audio/suoyou.wav
+122,Mandarin_English_some,,j,false_alarm,1712,audio/meiyou.wav
+122,Mandarin_English_some,,j,false_alarm,2949,audio/suoyou.wav
+122,Mandarin_English_some,,f,false_alarm,1980,audio/meiyou.wav
 102,Mandarin_English_some,,f,false_alarm,1152,audio/suoyou.wav
 102,Mandarin_English_some,,j,false_alarm,1091,audio/meiyou.wav
 102,Mandarin_English_some,,j,false_alarm,1419,audio/suoyou.wav
